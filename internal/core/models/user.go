@@ -15,6 +15,7 @@ type User struct {
 	TimeStampedModel
 	SoftDeleteModel
 	ActiveInactive
+	Recipes []Recipe `gorm:"ForeignKey:Author"`
 }
 
 func (user *User) HashPassword() *User {

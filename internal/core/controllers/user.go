@@ -9,7 +9,7 @@ import (
 
 func UsersList(c *gin.Context) {
 	var users []models.User
-	models.DBConn.Find(&users)
+	models.DBConn.Preload("Recipes").Find(&users)
 
 	c.JSON(http.StatusOK, gin.H{
 		"count": len(users),

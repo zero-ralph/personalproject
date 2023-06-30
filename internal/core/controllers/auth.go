@@ -18,8 +18,7 @@ func Register(c *gin.Context) {
 	var input AuthenticationInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
 	user := models.User{
@@ -49,7 +48,7 @@ func Login(c *gin.Context) {
 	}
 
 	config := c.MustGet("config").(*config.ConfigManager)
-	token, err := token.GenerateToken(user.ID, config)
+	token, err := token.GenerateToken(user.UUIDModel.ID, config)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Couldn't generate token."})

@@ -12,6 +12,8 @@ import (
 func PublicAPI(routerGroup *gin.RouterGroup) {
 	routerGroup.POST("/login", controllers.Login)
 	routerGroup.POST("/register", controllers.Register)
+	routerGroup.GET("/recipes", controllers.RecipesList)
+	routerGroup.GET("/recipes/:id", controllers.RecipeDetails)
 
 }
 
@@ -19,6 +21,9 @@ func PrivateAPI(routerGroup *gin.RouterGroup) {
 	routerGroup.Use(middleware.JWTAuthMiddleware())
 	routerGroup.Use(middleware.CurrentUser())
 	routerGroup.GET("/users", controllers.UsersList)
+	routerGroup.POST("/recipes", controllers.CreateRecipe)
+	routerGroup.PUT("/recipes/:id", controllers.UpdateRecipe)
+	routerGroup.PATCH("/recipes/:id", controllers.PartialUpdateRecipe)
 }
 
 func Start(config *config.ConfigManager) {

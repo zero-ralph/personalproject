@@ -27,7 +27,10 @@ func DatabaseConnection(config *config.ConfigManager) {
 		fmt.Println(err)
 	}
 
-	DBConn.AutoMigrate(&User{})
+	DBConn.AutoMigrate(
+		&User{},
+		&Recipe{},
+	)
 }
 
 func VerifyPassword(password string, hashedPassword string) (err error) {
@@ -35,7 +38,6 @@ func VerifyPassword(password string, hashedPassword string) (err error) {
 }
 
 func ValidateCredentials(username string, password string) (User, error) {
-
 	u := User{}
 
 	if err := DBConn.Model(User{}).Where("username=?", username).Take(&u).Error; err != nil {

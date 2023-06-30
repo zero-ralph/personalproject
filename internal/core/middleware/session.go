@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"net/http"
-	modelsServices "recipes/core/models/services"
+	modelsServices "recipes/core/modelServices"
 	"recipes/utilities/token"
 
 	"github.com/gin-gonic/gin"
