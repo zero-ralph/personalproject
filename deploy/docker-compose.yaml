@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  auth_service_app:
+    container_name: authservice
+    expose:
+      - "8001"
+    ports:
+      - 8001:8001
+    image: ${AUTH_SERVICE_IMAGE}
+    networks:
+      - personal_network
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  user_service_app:
+    container_name: userservice
+    expose:
+      - "8002"
+    ports:
+      - 8002:8002
+    image: ${USER_SERVICE_IMAGE}
+    networks:
+      - personal_network
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  domain_service_app:
+    container_name: domainservice
+    expose:
+      - "8003"
+    ports:
+      - 8003:8003
+    image: ${DOMAIN_SERVICE_IMAGE}
+    networks:
+      - personal_network
+    restart: unless-stopped
+    env_file:
+      - .env
+
+
+networks:
+  personal_network:
